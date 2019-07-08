@@ -25,4 +25,15 @@ public class RecipeService {
   public void addRecipe(Recipe recipe) {
       recipes.add(recipe);
     }
+
+  public void updateRecipe(String id, Recipe recipe) {
+      for (int i=0; i < recipes.size(); i++) {
+        Recipe r = recipes.get(i);
+        if (r.getId().matches(id)) recipes.set(i, recipe);
+      }
+    }
+
+  public void deleteRecipe(String id) {
+    recipes.removeIf(t -> t.getId().equals(id));
+    }
 }

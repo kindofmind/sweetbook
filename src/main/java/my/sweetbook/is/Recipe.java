@@ -1,9 +1,14 @@
 package my.sweetbook.is;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Recipe {
   private String id;
   private String name;
   private String desctiption;
+  private String ingredients;
+   
 
   public String getId() {
     return id;

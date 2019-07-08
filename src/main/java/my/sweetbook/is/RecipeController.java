@@ -28,5 +28,15 @@ public class RecipeController {
     recipeService.addRecipe(recipe);
   }
 
+  @RequestMapping(method = RequestMethod.PUT, value = "/recipes/{id}")
+  public void updateRecipe(@PathVariable String id, @RequestBody Recipe recipe) {
+    recipeService.updateRecipe(id, recipe);
+  }
+
+  @RequestMapping(method = RequestMethod.DELETE, value = "/recipes/{id}")
+  public void deleteRecipe(@PathVariable String id) {
+    recipeService.deleteRecipe(id);
+  }
 
 }
+
