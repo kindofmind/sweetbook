@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class RecipeService {
-
+ /*
  private List<Recipe> recipes =  new ArrayList<>(Arrays.asList(
         new Recipe("one", "salad1", "tomato & mayo!"),
         new Recipe("two", "salad2", "tomato & pepper & mayo!"),
@@ -36,4 +36,5 @@ public class RecipeService {
   public void deleteRecipe(String id) {
     recipes.removeIf(t -> t.getId().equals(id));
     }
+*/
 }

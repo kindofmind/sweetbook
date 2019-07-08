@@ -1,31 +1,54 @@
 package my.sweetbook.is;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 public class Recipe {
-  private String id;
+  @Id
+  @GeneratedValue(strategy= GenerationType.AUTO)
+  private int id;
+  @OneToMany
+  private User user;
   private String name;
   private String desctiption;
-  private String ingredients;
-   
 
-  public String getId() {
+  public String getAlgorithm() {
+    return algorithm;
+  }
+
+  public void setAlgorithm(String algorithm) {
+    this.algorithm = algorithm;
+  }
+
+  private String algorithm;
+
+
+  public int getId() {
     return id;
   }
 
   public Recipe() {
   }
 
-  public Recipe(String id, String name, String desctiption) {
+  public Recipe(int id, User user, String name, String desctiption, String algorithm) {
     super();
     this.id = id;
+    this.user = user;
     this.name = name;
     this.desctiption = desctiption;
+    this.algorithm = algorithm;
   }
 
-  public void setId(String id) {
+  public void setId(int id) {
     this.id = id;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public String getName() {
