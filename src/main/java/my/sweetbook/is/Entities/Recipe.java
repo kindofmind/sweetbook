@@ -1,16 +1,43 @@
-package my.sweetbook.is;
+package my.sweetbook.is.Entities;
 
 import javax.persistence.*;
+import java.awt.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name="recipes")
 public class Recipe {
+
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
   private int id;
-  @OneToMany
   private User user;
+  private Set<Category> categories;
+  private Set<Composition> compositions;
   private String name;
   private String desctiption;
+  private String algorithm;
+
+  public Recipe() {
+  }
+
+  public Recipe(int id, User user, Set<Category> categories, String name, String desctiption, String algorithm) {
+    this.id = id;
+    this.user = user;
+    this.categories = categories;
+    this.name = name;
+    this.desctiption = desctiption;
+    this.algorithm = algorithm;
+  }
+
+  public Set<Category> getCategories() {
+    return categories;
+  }
+
+  public void setCategories(Set<Category> categories) {
+    this.categories = categories;
+  }
 
   public String getAlgorithm() {
     return algorithm;
@@ -20,24 +47,11 @@ public class Recipe {
     this.algorithm = algorithm;
   }
 
-  private String algorithm;
-
-
   public int getId() {
     return id;
   }
 
-  public Recipe() {
-  }
 
-  public Recipe(int id, User user, String name, String desctiption, String algorithm) {
-    super();
-    this.id = id;
-    this.user = user;
-    this.name = name;
-    this.desctiption = desctiption;
-    this.algorithm = algorithm;
-  }
 
   public void setId(int id) {
     this.id = id;

@@ -1,9 +1,10 @@
-package my.sweetbook.is;
+package my.sweetbook.is.Entities;
 
 import javax.persistence.*;
 
 
 @Entity
+@Table(name="users")
 public class User {
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
@@ -17,7 +18,6 @@ public class User {
   }
 
   public User(int id, String login, String fiestName, String lastName, String moodMsg) {
-    super();
     this.id = id;
     this.login = login;
     this.fiestName = fiestName;
