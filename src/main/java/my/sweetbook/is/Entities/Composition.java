@@ -3,22 +3,18 @@ package my.sweetbook.is.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name="compositions")
 public class Composition {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
+  @ManyToOne
+  @JoinColumn(name="recipe_id")
+  private Recipe recipe;
+  @ManyToOne
+  @JoinColumn(name = "ingredient_id")
   private Ingredient ingredient;
   private long count;
 
-  public Composition() {
-  }
-
-  public Composition(int id, Ingredient ingredient, long count) {
-    this.id = id;
-    this.ingredient = ingredient;
-    this.count = count;
-  }
 
   public int getId() {
     return id;
@@ -42,5 +38,13 @@ public class Composition {
 
   public void setCount(long count) {
     this.count = count;
+  }
+
+  public Recipe getRecipe() {
+    return recipe;
+  }
+
+  public void setRecipe(Recipe recipe) {
+    this.recipe = recipe;
   }
 }

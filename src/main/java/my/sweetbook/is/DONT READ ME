@@ -28,39 +28,3 @@
   Фронтенд:
   Css-фреймворк (любой на выбор, например Bootstrap),
   JS: Vanilla JS, JQuery, Vue JS (на выбор) 
-
-
-
-
-USER
-ID (int)
-NAME (String)
-
-CATEGORY
-ID (int)
-NAME (String)
-
-INGREDIENTS
-ID (int)
-NAME (String)
-
-CONTAININGS
-ID (int)
-INGREDIENTS (INGREDIENTS ID)
-QUANTITY (long)
-RECIPE (RECIPE ID)
-
-RATING
-ID (int)
-USER (USER ID)
-RECIPE (RECIPE ID)
-VALUE (int)
-
-RECIPE
-ID (int)
-USER (USER ID)
-List<CATEGORY>
-List<CONTAININGS>
-NAME (String)
-DESCRIPTION (String)
-ALGORITHM (String)

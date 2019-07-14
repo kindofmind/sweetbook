@@ -1,6 +1,7 @@
-package User.Recipe;
+package my.sweetbook.is.Controllers;
 
 import my.sweetbook.is.Entities.Recipe;
+import my.sweetbook.is.Services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class RecipeController {
 
   @GetMapping("{id}")
   public Recipe getRecipe(@PathVariable int id) {
-   return recipeService.getRecite(id);
+    return recipeService.getRecite(id);
   }
 
   @PostMapping
@@ -39,4 +40,3 @@ public class RecipeController {
   }
 
 }
-

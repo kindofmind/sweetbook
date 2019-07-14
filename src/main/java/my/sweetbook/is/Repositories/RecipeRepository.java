@@ -1,4 +1,5 @@
-package User.Recipe;
+package my.sweetbook.is.Repositories;
+
 
 import my.sweetbook.is.Entities.Recipe;
 import org.springframework.data.repository.CrudRepository;

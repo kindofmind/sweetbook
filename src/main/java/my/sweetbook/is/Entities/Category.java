@@ -3,7 +3,6 @@ package my.sweetbook.is.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name="categories")
 public class Category {
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
@@ -13,8 +12,7 @@ public class Category {
   public Category() {
   }
 
-  public Category(int id, String name) {
-    this.id = id;
+  public Category(String name) {
     this.name = name;
   }
 

@@ -2,56 +2,50 @@ package my.sweetbook.is.Entities;
 
 import javax.persistence.*;
 import java.awt.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name="recipes")
 public class Recipe {
 
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
   private int id;
+
+  @ManyToOne
+  @JoinColumn(name="user_id")
   private User user;
+
+  @OneToMany
   private Set<Category> categories;
+
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
   private Set<Composition> compositions;
+
   private String name;
   private String desctiption;
   private String algorithm;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy="recipe")
+  private Set<Rating> rating;
 
   public Recipe() {
   }
 
-  public Recipe(int id, User user, Set<Category> categories, String name, String desctiption, String algorithm) {
+  public Recipe(int id, User user, Set<Category> categories, Set<Composition> compositions, String name, String desctiption, String algorithm, Set<Rating> rating) {
     this.id = id;
     this.user = user;
     this.categories = categories;
+    this.compositions = compositions;
     this.name = name;
     this.desctiption = desctiption;
     this.algorithm = algorithm;
-  }
-
-  public Set<Category> getCategories() {
-    return categories;
-  }
-
-  public void setCategories(Set<Category> categories) {
-    this.categories = categories;
-  }
-
-  public String getAlgorithm() {
-    return algorithm;
-  }
-
-  public void setAlgorithm(String algorithm) {
-    this.algorithm = algorithm;
+    this.rating = rating;
   }
 
   public int getId() {
     return id;
   }
-
-
 
   public void setId(int id) {
     this.id = id;
@@ -63,6 +57,22 @@ public class Recipe {
 
   public void setUser(User user) {
     this.user = user;
+  }
+
+  public Set<Category> getCategories() {
+    return categories;
+  }
+
+  public void setCategories(Set<Category> categories) {
+    this.categories = categories;
+  }
+
+  public Set<Composition> getCompositions() {
+    return compositions;
+  }
+
+  public void setCompositions(Set<Composition> compositions) {
+    this.compositions = compositions;
   }
 
   public String getName() {
@@ -79,5 +89,21 @@ public class Recipe {
 
   public void setDesctiption(String desctiption) {
     this.desctiption = desctiption;
+  }
+
+  public String getAlgorithm() {
+    return algorithm;
+  }
+
+  public void setAlgorithm(String algorithm) {
+    this.algorithm = algorithm;
+  }
+
+  public Set<Rating> getRating() {
+    return rating;
+  }
+
+  public void setRating(Set<Rating> rating) {
+    this.rating = rating;
   }
 }

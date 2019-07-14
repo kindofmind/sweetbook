@@ -1,6 +1,7 @@
-package User.Recipe;
+package my.sweetbook.is.Services;
 
 import my.sweetbook.is.Entities.Recipe;
+import my.sweetbook.is.Repositories.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +14,19 @@ public class RecipeService {
   private RecipeRepository recipeRepository;
 
   public List<Recipe> getAllRecipes() {
-      return (List<Recipe>) recipeRepository.findAll();
+    return (List<Recipe>) recipeRepository.findAll();
   }
 
-    public Recipe getRecite(int id) {
-     return recipeRepository.findById(id).get();
+  public Recipe getRecite(int id) {
+    return recipeRepository.findById(id).get();
   }
 
   public void addRecipe(Recipe recipe) {
-      recipeRepository.save(recipe);
+    recipeRepository.save(recipe);
   }
 
   public void updateRecipe(Recipe recipe) {
-      recipeRepository.save(recipe);
+    recipeRepository.save(recipe);
   }
 
   public void deleteRecipe(int id) {
@@ -34,3 +35,4 @@ public class RecipeService {
 
 
 }
+
