@@ -60,6 +60,7 @@
         <div>
             <button  v-for="item in ingfound" @click="useIngData(item.name)" type="button" class="btn btn-outline-secondary">{{ item.name }}</button>
         </div>
+
         <div class="input-group">
             <div v-for="ingredient in ingselected" class="alert alert-dark" role="alert">
                 <strong> {{ ingredient.name }}</strong>  {{ ingredient.count }}

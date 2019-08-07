@@ -4,18 +4,34 @@ import javax.persistence.*;
 
 @Entity
 public class Rating {
+
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
   private int id;
+
   @ManyToOne
-  @JoinColumn(name="user_id")
   private User user;
+
   @ManyToOne
-  @JoinColumn(name="recipe_id" )
   private Recipe recipe;
+
   private int value;
 
+  public Rating() {
+  }
 
+  public Rating(User user, Recipe recipe, int value) {
+    this.user = user;
+    this.recipe = recipe;
+    this.value = value;
+  }
+
+  public Rating(int id, User user, Recipe recipe, int value) {
+    this.id = id;
+    this.user = user;
+    this.recipe = recipe;
+    this.value = value;
+  }
 
   public int getId() {
     return id;

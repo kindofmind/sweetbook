@@ -13,23 +13,15 @@ public class CategoryService {
   @Autowired
   private CategoryRepository categoryRepository;
 
-  public List<Category> getCategories() {
-    return categoryRepository.findAll();
+  public Category findByName(String name) {
+    return categoryRepository.findByNameIgnoreCase(name);
   }
 
-  public List<Category> liveSearch(String name) {
+  public List<Category> findByKeyword(String name) {
     return categoryRepository.findByNameContainsIgnoreCase(name);
   }
 
   public boolean existsByName(String name) {
     return categoryRepository.existsByNameIgnoreCase(name.toLowerCase());
-  }
-
-  public Category findByName(String name) {
-    return categoryRepository.findByNameIgnoreCase(name);
-  }
-
-  public Category findById(int id) {
-    return categoryRepository.getOne(id);
   }
 }

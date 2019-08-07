@@ -1,10 +1,6 @@
 package sweetbook.entities;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.persistence.*;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,43 +10,34 @@ public class Recipe {
   @GeneratedValue(strategy= GenerationType.AUTO)
   private int id;
 
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private Set<Category> categories;
+
+  @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+  private Set<Composition> compositions;
+
   private String name;
 
-/*
   private String desctiption;
 
   private String algorithm;
 
   @ManyToOne
   private User user;
-*/
-
-
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private Set<Category> categories;
-
- /*
-  @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
-  private Set<Composition> compositions;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy="recipe", orphanRemoval=true)
   private Set<Rating> rating;
 
-
-  */
-
   public Recipe() {
   }
 
-  public Recipe(int id, User user, Set<Category> categories, Set<Composition> compositions, String name, String desctiption, String algorithm, Set<Rating> rating) {
+  public Recipe(int id, String name, String desctiption, String algorithm, Set<Category> categories, Set<Composition> compositions) {
     this.id = id;
-  //  this.user = user;
-    this.categories = categories;
-   // this.compositions = compositions;
     this.name = name;
-   // this.desctiption = desctiption;
-    //this.algorithm = algorithm;
-    // this.rating = rating;
+    this.desctiption = desctiption;
+    this.algorithm = algorithm;
+    this.categories = categories;
+    this.compositions = compositions;
   }
 
   public int getId() {
@@ -60,34 +47,6 @@ public class Recipe {
   public void setId(int id) {
     this.id = id;
   }
-/*
-
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
-*/
-
-  public Set<Category> getCategories() {
-    return categories;
-  }
-
-  public void setCategories(Set<Category> categories) {
-    this.categories = categories;
-  }
-/*
-
-  public Set<Composition> getCompositions() {
-    return compositions;
-  }
-
-  public void setCompositions(Set<Composition> compositions) {
-    this.compositions = compositions;
-  }
-*/
 
   public String getName() {
     return name;
@@ -97,7 +56,7 @@ public class Recipe {
     this.name = name;
   }
 
-/*  public String getDesctiption() {
+  public String getDesctiption() {
     return desctiption;
   }
 
@@ -113,11 +72,19 @@ public class Recipe {
     this.algorithm = algorithm;
   }
 
-  public Set<Rating> getRating() {
-    return rating;
+  public Set<Category> getCategories() {
+    return categories;
   }
 
-  public void setRating(Set<Rating> rating) {
-    this.rating = rating;
-  }*/
+  public void setCategories(Set<Category> categories) {
+    this.categories = categories;
+  }
+
+  public Set<Composition> getCompositions() {
+    return compositions;
+  }
+
+  public void setCompositions(Set<Composition> compositions) {
+    this.compositions = compositions;
+  }
 }

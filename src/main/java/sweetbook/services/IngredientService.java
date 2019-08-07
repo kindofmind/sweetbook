@@ -13,7 +13,16 @@ public class IngredientService {
   @Autowired
   private IngredientRepository ingredientRepository;
 
-  public List<Ingredient> findIngredient (String name) {
+  public Ingredient findByName(String name) {
+    return ingredientRepository.findByNameIgnoreCase(name);
+  }
+
+  public List<Ingredient> findByKeyword(String name) {
     return ingredientRepository.findByNameContainsIgnoreCase(name);
   }
+
+  public boolean existsByName(String name) {
+    return ingredientRepository.existsByNameIgnoreCase(name.toLowerCase());
+  }
+
 }

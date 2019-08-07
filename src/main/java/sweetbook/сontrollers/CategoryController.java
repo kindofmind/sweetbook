@@ -20,20 +20,20 @@ public class CategoryController {
   private CategoryService categoryService;
 
   @GetMapping("{name}")
-  public List<Category> findCategory(@PathVariable String name) {
-    return categoryService.liveSearch(name);
+  public List<Category> findByKeyword (@PathVariable String name) {
+    return categoryService.findByKeyword(name);
   }
 
-  public Set<Category> checkUnique(Set<Category> categories) {
-    Set<Category> categoriez = new HashSet<Category>();
+  public Set<Category> processUnique(Set<Category> categories) {
+    Set<Category> procCategories = new HashSet<Category>();
     if (categories.size() > 0) {
       for (Category category : categories) {
         if (categoryService.existsByName(category.getName()))
-          categoriez.add(categoryService.findByName(category.getName()));
-        else categoriez.add(category);
+          procCategories.add(categoryService.findByName(category.getName()));
+        else procCategories.add(category);
       }
     }
-    return categoriez;
+    return procCategories;
   }
 
 }
