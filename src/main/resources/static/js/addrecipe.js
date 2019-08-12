@@ -10,8 +10,15 @@ var addrecipe = new Vue({
         catfound: [],
         ingfound: [],
         ingcount: '',
+
+        userfn: 'Alexander',
+        userln: 'Petrov',
+        recipename: '',
+        description: '',
+        algorithm: '',
         catselected: [],
-        ingselected: [],
+        ingselected: []
+
     },
       watch: {
             catkeyword: function (after, before) {
@@ -39,7 +46,6 @@ var addrecipe = new Vue({
        this.catkeyword = '';
           },
 
-     //
           getIngData: function() {
           this.ingfound = [];
             if (this.ingkeyword.length >= 3) {ingApi.get({name: this.ingkeyword}).then(result =>
@@ -62,7 +68,6 @@ var addrecipe = new Vue({
                                 if (this.ingselected.some(item => item.name === ingitemname) && ingitemname != '') {ingselected.delete
                                 };
                      },
-
 
      }
 });

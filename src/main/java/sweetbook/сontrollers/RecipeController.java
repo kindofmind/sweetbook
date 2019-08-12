@@ -23,23 +23,23 @@ public class RecipeController {
   }
 
   @GetMapping("{id}")
-  public Recipe getRecipe(@PathVariable int id) {
+  public Recipe findById(@PathVariable int id) {
     return recipeService.findById(id);
   }
 
   @PostMapping
-  public void addRecipe(@RequestBody Recipe recipe) {
+  public void save(@RequestBody Recipe recipe) {
     recipe.setCategories(categoryController.processUnique(recipe.getCategories()));
     recipeService.save(recipe);
   }
 
-  @PutMapping("{id}")
-  public void updateRecipe(@PathVariable int id, @RequestBody Recipe recipe) {
+  @PutMapping
+  public void update(@RequestBody Recipe recipe) {
     recipeService.save(recipe);
   }
 
   @DeleteMapping("{id}")
-  public void deleteRecipe(@PathVariable int id) {
+  public void delete(@PathVariable int id) {
     recipeService.delete(id);
   }
 

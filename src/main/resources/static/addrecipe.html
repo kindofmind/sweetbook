@@ -11,71 +11,102 @@
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
     <title>Static List test</title>
 </head>
-<body>
+<body class="bg-transparent">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand mb-0 h1"  href="#">Sweetbook</a>
 </nav>
 
-<main  id="addrecipe" class="container-fluid">
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">Название</span>
-        </div>
-        <input type="text" class="form-control" placeholder="Например: &#34;Торт Красный бархат&#34;" aria-describedby="basic-addon1">
-    </div>
-
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">Описание</span>
-        </div>
-        <input type="text" class="form-control" placeholder="Например: &#34;Бисквитный торт с крем-чиз и ягодной начинкой&#34;" aria-describedby="basic-addon1">
-    </div>
-<div>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">Категория</span>
-        </div>
-        <input v-model="catkeyword" type="text" class="form-control" placeholder="Например: &#34;Десерты&#34;" aria-describedby="button-addon2">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" @click="setCatData(catkeyword)" type="button" id="button-addon2">Добавить</button>
-        </div>
-        <div>
-        <button  v-for="item in catfound" @click="setCatData(item.name)" type="button" class="btn btn-outline-secondary">{{ item.name }}</button>
-    </div>
-        <div class="input-group">{{ catselected }}</div>
-    </div>
-</div>
-
-   <div  class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text">Ингредиент</span>
-        </div>
-        <input v-model="ingkeyword" type="text" placeholder="Например: &#34;Мука&#34;" class="form-control">
-        <div class="input-group-prepend">
-            <span class="input-group-text">Количество</span>
-        </div>
-        <input v-model="ingcount" type="text" placeholder="Например: &#34;350 грамм&#34;" class="form-control">
-        <button class="btn btn-outline-secondary" @click="setIngData(ingkeyword, ingcount)" type="button" id="button-addon3">Добавить</button>
-        <div>
-            <button  v-for="item in ingfound" @click="useIngData(item.name)" type="button" class="btn btn-outline-secondary">{{ item.name }}</button>
-        </div>
-
-        <div class="input-group">
-            <div v-for="ingredient in ingselected" class="alert alert-dark" role="alert">
-                <strong> {{ ingredient.name }}</strong>  {{ ingredient.count }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<main  id="addrecipe" class="container-fluid mt-2">
+  <h2 class="text-center">Добавить рецепт</h2>
+    <div class="container bg-light">
+        <div class="row border">  <!--Name and description row-->
+            <div class="input-group mx-1 my-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Название</span>
+                </div>
+                <input v-model="recipename"  type="text" class="form-control" placeholder="Например: &#34;Торт Красный бархат&#34;">
             </div>
+
+            <div class="input-group mx-1 my-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Описание</span>
+                </div>
+                <input  v-model="description"  type="text" class="form-control" placeholder="Например: &#34;Бисквитный торт с крем-чиз и ягодной начинкой&#34;">
             </div>
-  </div>
+        </div> <!--End of Name and description row-->
+
+        <div class="row border mt-2">  <!--Category row-->
+                <div class="input-group  mx-1 my-1">
+                <span class="input-group-text">Категории</span>
+                <input v-model="catkeyword" type="text" class="form-control" placeholder="Например: &#34;Десерты&#34;">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" @click="setCatData(catkeyword)" type="button">Добавить</button>
+                </div>
+                <div>
+                    <button  v-for="item in catfound" @click="setCatData(item.name)" type="button" class="btn btn-outline-secondary">{{ item.name }}</button>
+                </div>
+            </div>
+
+                <div class="input-group mx-1">
+                    <div class="mx-1" v-for="cat in catselected">
+                    <strong> {{ cat.name }}</strong>
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                </div>
+
+        </div> <!-- end of category row-->
+
+        <div class="row border mt-2">   <!--Ingredient row-->
+
+            <div class="input-group mx-1 my-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Ингредиенты</span>
+                </div>
+                <input v-model="ingkeyword" type="text" placeholder="Например: &#34;Мука&#34;" class="form-control">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Количество</span>
+                </div>
+                <input v-model="ingcount" type="text" placeholder="Например: &#34;350 грамм&#34;" class="form-control">
+                <button class="btn btn-outline-secondary" @click="setIngData(ingkeyword, ingcount)" type="button">Добавить</button>
+                <div>
+                    <button  v-for="item in ingfound" @click="useIngData(item.name)" type="button" class="btn btn-outline-secondary">{{ item.name }}</button>
+                </div>
+                </div>
+            <div class="input-group mx-1">
+            <div class="mx-1" v-for="ingredient in ingselected">
+                        <strong> {{ ingredient.name }}:</strong>  {{ ingredient.count }}
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+            </div>
+            </div>  <!-- end of Ingredient row-->
+
+        <div class="row border mt-2"> <!--Recipe row-->
+            <div class="input-group mx-1 my-1">
+            <textarea v-model="algorithm" class="form-control" rows="7" placeholder="Подробно опишите алгоритм приготовления..."></textarea>
+            </div>
+            </div> <!-- end of Recipe row-->
 
 
-* название (не обязательно уникальное)  alert-dismissible fade show
-    * описание
-     * перечень ингредиентов 
-    * непосредственно описание алгоритма приготовления 
+    <div class="row border mt-2"> <!--Recipe row-->
+        <div>
+            <div class="input-group mx-1 my-1">
+                <button class="btn btn-outline-secondary" @click="" type="button">Добавить рецепт</button>
+                <button class="btn btn-outline-secondary ml-1" @click="" type="button">Очистить форму</button>
+                <button class="btn btn-outline-secondary ml-1" @click="" type="button">Отменить</button>
+            </div>
+        </div>
+
+        <div class="col align-middle">
+                <span class="align-middle"> <strong> {{ userfn }} </strong> {{ userln }} </span>
+        </div>
+    </div>
+
+    </div>
 
 </main>
 
