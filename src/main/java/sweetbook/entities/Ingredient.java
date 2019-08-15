@@ -9,7 +9,7 @@ public class Ingredient {
   @GeneratedValue(strategy= GenerationType.AUTO)
   private int id;
 
-  @Column(unique = true, length = 30, nullable = false)
+  //@Column(unique = true, length = 30, nullable = false)
   private String name;
 
   public Ingredient() {

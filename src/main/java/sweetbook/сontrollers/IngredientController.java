@@ -24,7 +24,7 @@ public class IngredientController {
     return ingredientService.findByKeyword(name);
   }
 
-/*  public Set<Ingredient> processUnique(Set<Ingredient> ingredients) {
+   public Set<Ingredient> processUnique(Set<Ingredient> ingredients) {
     Set<Ingredient> procIngredients = new HashSet<Ingredient>();
     if (ingredients.size() > 0) {
       for (Ingredient ingredient : ingredients) {
@@ -34,7 +34,7 @@ public class IngredientController {
       }
     }
     return procIngredients;
-  }*/
+  }
 
 
 }

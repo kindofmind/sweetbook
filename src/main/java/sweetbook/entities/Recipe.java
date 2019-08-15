@@ -18,7 +18,7 @@ public class Recipe {
 
   private String name;
 
-  private String desctiption;
+  private String description;
 
   private String algorithm;
 
@@ -31,10 +31,10 @@ public class Recipe {
   public Recipe() {
   }
 
-  public Recipe(int id, String name, String desctiption, String algorithm, Set<Category> categories, Set<Composition> compositions) {
+  public Recipe(int id, String name, String description, String algorithm, Set<Category> categories, Set<Composition> compositions) {
     this.id = id;
     this.name = name;
-    this.desctiption = desctiption;
+    this.description = description;
     this.algorithm = algorithm;
     this.categories = categories;
     this.compositions = compositions;
@@ -57,11 +57,11 @@ public class Recipe {
   }
 
   public String getDesctiption() {
-    return desctiption;
+    return description;
   }
 
-  public void setDesctiption(String desctiption) {
-    this.desctiption = desctiption;
+  public void setDesctiption(String description) {
+    this.description = description;
   }
 
   public String getAlgorithm() {

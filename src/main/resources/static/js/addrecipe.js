@@ -1,3 +1,4 @@
+var recApi = Vue.resource('/recipe');
 var catApi = Vue.resource('/category{/name}');
 var ingApi = Vue.resource('/ingredient{/name}');
 
@@ -10,6 +11,14 @@ var addrecipe = new Vue({
         catfound: [],
         ingfound: [],
         ingcount: '',
+
+        editcat: false,
+        editcatindex: null,
+
+        editing: false,
+
+        labelcat: 'Добавить',
+        labeling: 'Добавить',
 
         userfn: 'Alexander',
         userln: 'Petrov',
@@ -37,13 +46,27 @@ var addrecipe = new Vue({
     methods: {
      getCatData: function() {
      this.catfound = [];
-       if (this.catkeyword.length >= 3) {catApi.get({name: this.catkeyword}).then(result =>
+       if (!this.editcat && this.catkeyword.length >= 3) {catApi.get({name: this.catkeyword}).then(result =>
            result.json().then(data =>
                data.forEach(catitem => this.catfound.push(catitem))))}
      },
-     setCatData: function(catitemname) {
-     if (!(this.catselected.some(item => item.name === catitemname)) && catitemname != '') {this.catselected.push( { name : catitemname } )};
-       this.catkeyword = '';
+          setCatData: function(catitemname) {
+            if (!this.editcat && !(this.catselected.some(item => item.name === catitemname)) && catitemname != '') {
+            this.catselected.push( { name : catitemname } );
+            }
+            else if (this.editcat) {
+            this.catselected[this.editcatindex].name = catitemname;
+            }
+               this.editcat = false;
+               this.labelcat = 'Добавить';
+               this.catkeyword = '';
+          },
+
+          setCatEdit: function(catid) {
+                this.editcat = true;
+                this.editcatindex = catid;
+                this.catkeyword = this.catselected[catid].name;
+                this.labelcat = 'Обновить';
           },
 
           getIngData: function() {
@@ -58,8 +81,11 @@ var addrecipe = new Vue({
           },
 
           setIngData: function(ingname,ingcount) {
-                if (!this.ingselected.includes(ingname) && ingname != '') {this.ingselected.push( { name : ingname, count : ingcount } )
+                if (!this.editing && !this.ingselected.includes(ingname) && ingname != '') {this.ingselected.push( { ingredient : {name : ingname}, count : ingcount } )
                 };
+                if (this.editing) {
+                this.ingselected
+                }
                  this.ingkeyword = '';
                  this.ingcount = '';
           },
@@ -69,6 +95,16 @@ var addrecipe = new Vue({
                                 };
                      },
 
+          saveRecipe: function() {
+                    recipe = {
+                    name : this.recipename,
+                    description : this.description,
+                    algorithm : this.algorithm,
+                    categories : this.catselected,
+                    compositions : this.ingselected
+                    };
+                    recApi.save(recipe);
+                     },
+
      }
 });
-
