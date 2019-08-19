@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
   List<Composition> findCompositionsById (int id);
+
 }

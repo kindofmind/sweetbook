@@ -9,7 +9,7 @@
     <!-- VUE -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
-    <title>Static List test</title>
+    <title>Добавить рецепт</title>
 </head>
 <body class="bg-transparent">
 
@@ -25,7 +25,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Название</span>
                 </div>
-                <input v-model="recipename"  type="text" class="form-control" placeholder="Например: &#34;Торт Красный бархат&#34;">
+                <input v-model="recipeName"  type="text" class="form-control" placeholder="Например: &#34;Торт Красный бархат&#34;">
             </div>
 
             <div class="input-group mx-1 my-1">
@@ -39,19 +39,19 @@
         <div class="row border mt-2">  <!--Category row-->
                 <div class="input-group  mx-1 my-1">
                 <span class="input-group-text">Категории</span>
-                <input v-model="catkeyword" type="text" class="form-control" placeholder="Например: &#34;Десерты&#34;">
+                <input v-model="catKeyword" @keyup.enter="setCatData(catKeyword)" type="text" maxlength="30"  class="form-control" placeholder="Например: &#34;Десерты&#34;">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" @click="setCatData(catkeyword)" type="button">{{ labelcat }}</button>
+                    <button class="btn btn-outline-secondary" @click="setCatData(catKeyword)" type="button">{{ labelCat }}</button>
                 </div>
                 <div>
-                    <button  v-for="cat in catfound" v-bind:key="cat.id" @click="setCatData(cat.name)" type="button" class="btn btn-outline-secondary">{{ cat.name }}</button>
+                    <button  v-for="cat in catFound" v-bind:key="cat.id" @click="setCatData(cat.name)" type="button" class="btn btn-outline-secondary ml-1">{{ cat.name }}</button> <!--Cat live search results-->
                 </div>
             </div>
 
                 <div class="input-group mx-1">
-                    <div class="mx-1" v-for="(cat, index) in catselected">
-                        <button class="border-0" @click="setCatEdit(index)"><strong>{{ cat.name }}</strong></button>
-                    <button type="button" class="close" aria-label="Close">
+                    <div class="mx-1" v-for="(cat, index) in catSelected">
+                        <button class="border-0" @click="setCatEdit(index)"><strong>{{ cat.name }}</strong></button> <!--cat list-->
+                    <button type="button" @click="delCat(index)" class="close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     </div>
@@ -65,20 +65,20 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Ингредиенты</span>
                 </div>
-                <input v-model="ingkeyword" type="text" placeholder="Например: &#34;Мука&#34;" class="form-control">
+                <input v-model="ingKeyword" type="text" placeholder="Например: &#34;Мука&#34;" class="form-control">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Количество</span>
                 </div>
-                <input v-model="ingcount" type="text" placeholder="Например: &#34;350 грамм&#34;" class="form-control">
-                <button class="btn btn-outline-secondary" @click="setIngData(ingkeyword, ingcount)" type="button">{{ labeling }}</button>
+                <input v-model="ingCount" @keyup.enter="setIngData(ingKeyword, ingCount)" type="text" placeholder="Например: &#34;350 грамм&#34;" class="form-control">
+                <button class="btn btn-outline-secondary" @click="setIngData(ingKeyword, ingCount)" type="button">{{ labelIng }}</button> <!--Ing live search-->
                 <div>
-                    <button  v-for="ing in ingfound" @click="useIngData(ing.name)" type="button" class="btn btn-outline-secondary">{{ ing.name }}</button>
+                    <button  v-for="ing in ingFound" @click="useIngData(ing.name)" type="button" class="btn btn-outline-secondary  ml-1">{{ ing.name }}</button> <!--Ing live search results-->
                 </div>
                 </div>
             <div class="input-group mx-1">
-            <div class="mx-1" v-for="ingredient in ingselected">
-                <button class="border-0 > <strong> {{ ingredient.ingredient.name }}:</strong>  {{ ingredient.count }} </button>
-                            <button type="button" class="close" aria-label="Close">
+            <div class="mx-1" v-for="(ingredient, index) in ingSelected">
+                <button class="border-0" @click="setIngEdit(index)"> <strong> {{ ingredient.ingredient.name }} :</strong>  {{ ingredient.count }} </button> <!--ingredient list-->
+                            <button type="button" @click="delIng(index)" class="close" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                     </div>
@@ -92,17 +92,17 @@
             </div> <!-- end of Recipe row-->
 
 
-    <div class="row border mt-2"> <!--Recipe row-->
+    <div class="row border mt-2"> <!--Buttons row-->
         <div>
             <div class="input-group mx-1 my-1">
                 <button class="btn btn-outline-secondary" @click="saveRecipe" type="button">Добавить рецепт</button>
-                <button class="btn btn-outline-secondary ml-1" @click="" type="button">Очистить форму</button>
+                <button class="btn btn-outline-secondary ml-1" @click="cleanForm" type="button">Очистить форму</button>
                 <button class="btn btn-outline-secondary ml-1" @click="" type="button">Отменить</button>
             </div>
         </div>
 
         <div class="col">
-                <span> <strong> {{ userfn }} </strong> {{ userln }} </span>
+                <span> <strong> {{ userFn }} </strong> {{ userLn }} </span>
         </div>
     </div>
 
