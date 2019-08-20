@@ -1,5 +1,7 @@
 package sweetbook.сontrollers;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import sweetbook.entities.*;
 import sweetbook.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,9 @@ public class RecipeController {
   private CategoryController categoryController;
 
   @GetMapping
-  public List<Recipe> findAll() {
-    return recipeService.findAll();
+  public List<Recipe> findAllPageable()
+  {
+    return recipeService.findAll(new PageRequest(0,20)).getContent();
   }
 
   @GetMapping("{id}")
@@ -43,36 +46,6 @@ public class RecipeController {
     recipeService.delete(id);
   }
 
-   @GetMapping({"XX"})
-  public void testadd() {
-     Category category1 = new Category();
-     category1.setName("cat1");
-
-     Category category2 = new Category();
-     category2.setName("cat2");
-
-     Ingredient ingredient1 = new Ingredient();
-     ingredient1.setName("Ing1");
-
-     Ingredient ingredient2 = new Ingredient();
-     ingredient2.setName("Ing2");
-
-     Composition composition1 = new Composition();
-     composition1.setIngredient(ingredient1);
-     composition1.setCount("ing 1 MNOGO");
-
-     Composition composition2 = new Composition();
-     composition2.setIngredient(ingredient2);
-     composition2.setCount("ing 2 MNOGO");
-
-    Recipe recipe = new Recipe();
-    recipe.setCategories(new HashSet<>(Arrays.asList(category1, category2)));
-    recipe.setCompositions(new HashSet<>(Arrays.asList(composition1, composition2)));
-    recipe.setName("Recipe1");
-    recipe.setDesctiption("Recipe 1 Description");
-    recipe.setAlgorithm("Recipe 1 Algorithm");
-
-    save(recipe);
   }
 
 
