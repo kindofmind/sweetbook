@@ -25,10 +25,16 @@ public class RecipeController {
     return recipeService.findAll();
   }
 
-  @GetMapping("/all/{page}")
+  @GetMapping("/pagecount")
+  public int getPageCount()
+  {
+    return recipeService.findAll(PageRequest.of(0, 10)).getTotalPages();
+  }
+
+  @GetMapping("/page/{page}")
   public List<Recipe> findAllPageable(@PathVariable int page)
   {
-     return recipeService.findAll(PageRequest.of(page, 20)).getContent();
+     return recipeService.findAll(PageRequest.of(page, 10)).getContent();
   }
 
   @GetMapping("{id}")

@@ -1,21 +1,32 @@
-var recApi = Vue.resource('/recipe');
-var catApi = Vue.resource('/category{/name}');
-var ingApi = Vue.resource('/ingredient{/name}');
+var recApi = Vue.resource('/recipe{/cmd}{/page}');
 
 
 var loadrecipe = new Vue({
   el: '#loadrecipe',
   data: {
-        recipes []
+        recipes: [],
+        pageCount: null,
+        currentPage: null
         },
 
   created: function() {
-        recipeApi.get().then(result =>
+        recApi.get({cmd: 'page', page: 0}).then(result =>
         result.json().then(data =>
-        data.forEach(recipe => this.recipes.push(recipe))))
+        data.forEach(recipe => this.recipes.push(recipe))));
+
+        pageCount = recApi.get({cmd: 'pagecount'}).then(result => result.json().then(
+        data => this.pageCount = data));
         },
 
   methods: {
 
-           }
+  getPageOfRecipes: function(pageNumber) {
+  this.recipes = [];
+  recApi.get({cmd: 'page', page: pageNumber-1 }).then(result =>
+  result.json().then(data =>
+  data.forEach(recipe => this.recipes.push(recipe))));
+ },
+
+   }
+
 });
