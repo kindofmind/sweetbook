@@ -1,6 +1,5 @@
 package sweetbook.сontrollers;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import sweetbook.entities.*;
 import sweetbook.services.RecipeService;
@@ -19,10 +18,17 @@ public class RecipeController {
   @Autowired
   private CategoryController categoryController;
 
-  @GetMapping
-  public List<Recipe> findAllPageable()
+
+  @GetMapping("/all")
+  public List<Recipe> findAll()
   {
-    return recipeService.findAll(new PageRequest(0,20)).getContent();
+    return recipeService.findAll();
+  }
+
+  @GetMapping("/all/{page}")
+  public List<Recipe> findAllPageable(@PathVariable int page)
+  {
+     return recipeService.findAll(PageRequest.of(page, 20)).getContent();
   }
 
   @GetMapping("{id}")
@@ -47,7 +53,3 @@ public class RecipeController {
   }
 
   }
-
-
-
-}
