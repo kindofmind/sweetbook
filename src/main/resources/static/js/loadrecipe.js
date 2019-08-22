@@ -10,7 +10,8 @@ var loadrecipe = new Vue({
         },
 
   created: function() {
-        recApi.get({cmd: 'page', page: 0}).then(result =>
+        this.currentPage = 0;
+        recApi.get({cmd: 'page', page: this.currentPage}).then(result =>
         result.json().then(data =>
         data.forEach(recipe => this.recipes.push(recipe))));
 
@@ -21,12 +22,22 @@ var loadrecipe = new Vue({
   methods: {
 
   getPageOfRecipes: function(pageNumber) {
+  this.currentPage = pageNumber-1;
   this.recipes = [];
   recApi.get({cmd: 'page', page: pageNumber-1 }).then(result =>
   result.json().then(data =>
   data.forEach(recipe => this.recipes.push(recipe))));
  },
 
-   }
+ nextPage: function() {
+ if (this.currentPage < this.pageCount)
+ }
+
+
+
+ isPageActive: function(pageNumber) {
+ if (pageNumber == this.currentPage+1) return 'page-item active'; else return 'page-item';
+    },
+}
 
 });
