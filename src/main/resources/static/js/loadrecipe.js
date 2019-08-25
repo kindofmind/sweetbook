@@ -20,24 +20,38 @@ var loadrecipe = new Vue({
         },
 
   methods: {
-
   getPageOfRecipes: function(pageNumber) {
-  this.currentPage = pageNumber-1;
   this.recipes = [];
-  recApi.get({cmd: 'page', page: pageNumber-1 }).then(result =>
+  this.currentPage = pageNumber;
+  recApi.get({cmd: 'page', page: pageNumber }).then(result =>
   result.json().then(data =>
-  data.forEach(recipe => this.recipes.push(recipe))));
+  data.forEach(recipe => {
+  this.recipes.push(recipe);
+  })));
  },
 
  nextPage: function() {
- if (this.currentPage < this.pageCount)
- }
+  if (this.currentPage < this.pageCount-1) this.getPageOfRecipes(this.currentPage+1);
+},
 
 
+ previousPage: function() {
+  if (this.currentPage > 0) this.getPageOfRecipes(this.currentPage-1);
+},
 
- isPageActive: function(pageNumber) {
- if (pageNumber == this.currentPage+1) return 'page-item active'; else return 'page-item';
+ isPageButtonActive: function(pageNumber) {
+ if (pageNumber == this.currentPage) return 'page-item active'; else return 'page-item';
     },
+
+ isNextButtonEnabled: function() {
+ if (this.currentPage+1 < this.pageCount) return 'page-item enabled'; else return 'page-item disabled';
+ },
+
+ isPreviousButtonEnabled: function() {
+  if (this.currentPage > 0) return 'page-item enabled'; else return 'page-item disabled';
+  },
+
+
 }
 
 });

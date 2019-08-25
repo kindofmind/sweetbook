@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <!-- BOOTSTRAP BLOCK -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="css/my.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- VUE -->
@@ -11,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
     <title>Sweetbook</title>
 </head>
+
 <body class="bg-transparent">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -18,38 +20,35 @@
 </nav>
 
 <main  id="loadrecipe" class="container-fluid mt-2">
-    <div class="container bg-light">
-    <div class="row border">  <!--Recipe row-->
-        <div v-for="recipe in recipes"> {{ recipe.name}} </div>
 
-    </div>
+    <div class="container bg-light">
+        <transition-group name="list" tag="div">
+        <div v-for="recipe in recipes"  v-bind:key="recipe.id" class="row border mx-1 my-1">  <!--Recipe row-->
+                <h2> {{ recipe.name}}</h2>
+               <h3 class="text-muted">{{ recipe.description }} </h3>
+
+        </div>
+        </transition-group>
     </div>
 
     <nav aria-label="...">
-        <ul class="pagination">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        <ul class="pagination justify-content-center">
+            <li  v-bind:class="isPreviousButtonEnabled()"  @click="previousPage()">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Назад</a>
             </li>
 
 
-            <li v-for="page in pageCount"  @click="getPageOfRecipes(page)" v-bind:class="isPageActive(page)" aria-current="page">
+            <li v-for="page in pageCount"  @click="getPageOfRecipes(page-1)" v-bind:class="isPageButtonActive(page-1)" aria-current="page">
                 <a class="page-link" href="#"> {{ page }}
-                 </a>
+                </a>
             </li>
 
-
-            <li class="page-item">
-
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
+            <li v-bind:class="isNextButtonEnabled()"  @click="nextPage()">
+                <a class="page-link" href="#">Вперед</a>
             </li>
         </ul>
+
     </nav>
-
-
-
-
-
 
 </main>
 
