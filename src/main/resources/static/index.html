@@ -22,29 +22,31 @@
 <main  id="loadrecipe" class="container-fluid mt-2">
 
     <div class="container bg-light">
-        <transition-group name="list" tag="div">
-        <div v-for="recipe in recipes"  v-bind:key="recipe.id" class="row border mx-1 my-1">  <!--Recipe row-->
-                <h2> {{ recipe.name}}</h2>
-               <h3 class="text-muted">{{ recipe.description }} </h3>
 
+        <div v-for="recipe in recipes" class="jumbotron">
+            <h1 class="h2">{{ recipe.name}}</h1>
+            <p class="h3 text-muted mr-1">{{ recipe.description }}</p>
+            <hr class="my-4">
+            <p><span class="h5" v-for="category in recipe.categories"> {{ category.name }}</span></p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
         </div>
-        </transition-group>
+
     </div>
 
-    <nav aria-label="...">
+    <nav>
         <ul class="pagination justify-content-center">
             <li  v-bind:class="isPreviousButtonEnabled()"  @click="previousPage()">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Назад</a>
+                <a class="page-link" href="javascript:" tabindex="-1" aria-disabled="true">Назад</a>
             </li>
 
 
             <li v-for="page in pageCount"  @click="getPageOfRecipes(page-1)" v-bind:class="isPageButtonActive(page-1)" aria-current="page">
-                <a class="page-link" href="#"> {{ page }}
+                <a class="page-link" href="javascript:"> {{ page }}
                 </a>
             </li>
 
             <li v-bind:class="isNextButtonEnabled()"  @click="nextPage()">
-                <a class="page-link" href="#">Вперед</a>
+                <a class="page-link" href="javascript:">Вперед</a>
             </li>
         </ul>
 
