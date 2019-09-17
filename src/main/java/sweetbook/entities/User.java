@@ -1,38 +1,35 @@
 package sweetbook.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 
 @Entity
+@Table(name="users")
 public class User {
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)
   private int id;
+  @Column(name="username",  nullable = false, length = 50)
   private String login;
   private String firstName;
   private String lastName;
   private String moodMsg;
+  @Column(name="password", nullable = false, length = 50)
+  @JsonIgnore
   private String password;
+  @Column(name="enabled", nullable = false)
+  private boolean isEnabled;
+  @Enumerated(EnumType.STRING)
+  private Role role;
 
-
-  public User() {
+  public int getId() {
+    return id;
   }
 
-  public User(String login, String firstName, String lastName, String moodMsg, String password) {
-    this.login = login;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.moodMsg = moodMsg;
-    this.password = password;
-  }
-
-  public User(int id, String login, String firstName, String lastName, String moodMsg, String password) {
+  public void setId(int id) {
     this.id = id;
-    this.login = login;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.moodMsg = moodMsg;
-    this.password = password;
   }
 
   public String getLogin() {
@@ -43,11 +40,11 @@ public class User {
     this.login = login;
   }
 
-  public String getFiestName() {
+  public String getFirstName() {
     return firstName;
   }
 
-  public void setFiestName(String firstName) {
+  public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
@@ -73,5 +70,13 @@ public class User {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public Role getRole() {
+    return role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
   }
 }

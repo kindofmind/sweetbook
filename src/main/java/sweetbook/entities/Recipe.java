@@ -31,15 +31,6 @@ public class Recipe {
   public Recipe() {
   }
 
-  public Recipe(int id, String name, String description, String algorithm, Set<Category> categories, Set<Composition> compositions) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.algorithm = algorithm;
-    this.categories = categories;
-    this.compositions = compositions;
-  }
-
   public int getId() {
     return id;
   }
@@ -86,5 +77,9 @@ public class Recipe {
 
   public void setCompositions(Set<Composition> compositions) {
     this.compositions = compositions;
+  }
+
+  public User getUser() {
+    return user;
   }
 }
