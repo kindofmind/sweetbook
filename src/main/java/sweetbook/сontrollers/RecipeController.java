@@ -9,7 +9,7 @@ import sweetbook.services.RecipeService;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="recipe")
+@RequestMapping(path = "recipe")
 public class RecipeController {
 
   @Autowired
@@ -18,23 +18,22 @@ public class RecipeController {
   @Autowired
   private CategoryController categoryController;
 
+  @Autowired
+  private IngredientController ingredientController;
 
   @GetMapping("/all")
-  public List<Recipe> findAll()
-  {
+  public List<Recipe> findAll() {
     return recipeService.findAll();
   }
 
   @GetMapping("/pagecount")
-  public int getPageCount()
-  {
+  public int getPageCount() {
     return recipeService.findAll(PageRequest.of(0, 10)).getTotalPages();
   }
 
   @GetMapping("/page/{page}")
-  public List<Recipe> findAllPageable(@PathVariable int page)
-  {
-     return recipeService.findAll(PageRequest.of(page, 10)).getContent();
+  public List<Recipe> findAllPageable(@PathVariable int page) {
+    return recipeService.findAll(PageRequest.of(page, 10)).getContent();
   }
 
   @GetMapping("{id}")
@@ -44,7 +43,8 @@ public class RecipeController {
 
   @PostMapping
   public void save(@RequestBody Recipe recipe) {
-    recipe.setCategories(categoryController.processUnique(recipe.getCategories()));
+    recipe.setCategories((categoryController.processUnique(recipe.getCategories())));
+    recipe.setCompositions(ingredientController.processUnique(recipe.getCompositions()));
     recipeService.save(recipe);
   }
 
@@ -58,4 +58,11 @@ public class RecipeController {
     recipeService.delete(id);
   }
 
-  }
+/*
+  @GetMapping("like/{id}")
+  public void like(@PathVariable int id)
+
+*/
+
+
+}

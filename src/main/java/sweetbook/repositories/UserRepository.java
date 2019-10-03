@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import sweetbook.entities.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-  User findByLogin(String login);
+
+  User findByUsername(String login);
+
 }

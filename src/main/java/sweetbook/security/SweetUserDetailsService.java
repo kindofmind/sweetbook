@@ -8,16 +8,18 @@ import org.springframework.stereotype.Service;
 import sweetbook.entities.User;
 import sweetbook.repositories.UserRepository;
 
-@Service
-public class SbUserDetailsService implements UserDetailsService {
+@Service("userDetailsService")
+public class SweetUserDetailsService implements UserDetailsService {
 
   @Autowired
   private UserRepository userRepository;
 
   @Override
-  public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-    User user = userRepository.findByLogin(name);
-    if (user == null) throw new UsernameNotFoundException(name);
-    return new SbUserPrincipal(user);
+  public UserDetails loadUserByUsername(String username) {
+    User user = userRepository.findByUsername(username);
+    if (user == null) {
+      throw new UsernameNotFoundException(username);
+    }
+    return new SweetUserPrincipal(user);
   }
 }

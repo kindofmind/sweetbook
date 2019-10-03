@@ -1,8 +1,8 @@
 package sweetbook.entities;
 
-import javax.persistence.Entity;
-
 public enum Role {
-  USER,
-  ADMIN;
+
+  ROLE_USER,
+  ROLE_ADMIN;
+
 }

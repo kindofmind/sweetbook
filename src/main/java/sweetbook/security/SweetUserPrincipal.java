@@ -3,28 +3,26 @@ package sweetbook.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import sweetbook.entities.Role;
 import sweetbook.entities.User;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import javax.security.auth.Subject;
+import java.nio.file.attribute.UserPrincipal;
+import java.util.*;
 
-public class SbUserPrincipal implements UserDetails {
+public class SweetUserPrincipal implements UserDetails {
   private User user;
 
-  public SbUserPrincipal(User user) {
+  public SweetUserPrincipal(User user) {
     this.user = user;
-  }
-
-  public User getUser() {
-    return user;
   }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    final List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("User"));
+    final List<GrantedAuthority> authorities = new ArrayList<>();
+    for(Role role : user.getRoles()) { authorities.add(new SimpleGrantedAuthority(role.toString()));}
     return authorities;
-  }
+      }
 
   @Override
   public String getPassword() {
@@ -33,7 +31,7 @@ public class SbUserPrincipal implements UserDetails {
 
   @Override
   public String getUsername() {
-    return user.getLogin();
+    return user.getUsername();
   }
 
   @Override
@@ -53,6 +51,10 @@ public class SbUserPrincipal implements UserDetails {
 
   @Override
   public boolean isEnabled() {
-    return true;
+    return user.isEnabled();
+  }
+
+  public User getUser() {
+    return user;
   }
 }
