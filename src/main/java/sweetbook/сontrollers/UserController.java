@@ -1,13 +1,13 @@
 package sweetbook.сontrollers;
 
-import com.mysql.cj.xdevapi.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sweetbook.entities.Role;
 import sweetbook.entities.User;
 import sweetbook.services.UserService;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
 
 @RestController
 @RequestMapping(path = "/user")
@@ -26,12 +26,14 @@ public class UserController {
     userService.save(user);
   }
 
+/*
   @GetMapping(path = "/get/{name}")
   public User createUser(@PathVariable String name) {
     return userService.findByName(name);
   }
+*/
 
-    @GetMapping(path = "/us")
+    @GetMapping(path = "/test/us")
   public void createUser() {
     User user = new User();
     user.setEnabled(true);
@@ -41,7 +43,7 @@ public class UserController {
     save(user);
   }
 
-  @GetMapping(path = "/ad")
+  @GetMapping(path = "/test/ad")
   public void createUser1() {
     User user1 = new User();
     user1.setEnabled(true);

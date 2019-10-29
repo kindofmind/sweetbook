@@ -1,0 +1,23 @@
+UserController
+        /user
+           POST/PUT {Object} - saves / updates object in table
+           GET /get/{name} - off
+           GET /test/ad us - creates test admin user pass = 1
+
+CategoryController:
+        /category
+           GET /{name} - finds by keyword
+
+IngredientController
+        /ingredient
+           GET /{name} - finds by keyword
+
+RecipeController:
+          /recipe
+            GET /all - returns all Entities
+            GET /pagecount - returns number of pages (10 lines in each page)
+            GET /page/{page} - returns particular page
+            GET /{id} - returns particular entity
+            POST/PUT {Object} - saves / updates object in table
+            DELETE /{id} - deletes particular entity
+
