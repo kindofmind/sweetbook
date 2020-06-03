@@ -31,4 +31,6 @@ public class Recipe {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", orphanRemoval = true)
   private Set<Rating> rating;
 
+  private int sumRating;
+
 }

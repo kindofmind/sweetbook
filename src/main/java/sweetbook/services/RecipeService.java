@@ -18,6 +18,30 @@ public class RecipeService {
     return recipeRepository.findAll(pageable);
   }
 
+  public Page<Recipe> findAllByKeyword(String keyword, Pageable pageable) {
+    return recipeRepository.findByNameOrCategoriesNameOrCompositionsIngredientNameOrUserUsernameOrUserFirstNameOrUserLastNameContainsIgnoreCase(keyword, pageable);
+  }
+
+  public Page<Recipe> findAllByName(String recipeName, Pageable pageable) {
+    return recipeRepository.findByNameContainsIgnoreCase(recipeName, pageable);
+  }
+
+  public Page<Recipe> findAllByCategory(String categoryName, Pageable pageable) {
+    return recipeRepository.findByCategoriesNameContainsIgnoreCase(categoryName, pageable);
+  }
+
+  public Page<Recipe> findAllByUser(String userName, Pageable pageable) {
+    return recipeRepository.findByNameOrCategoriesNameOrCompositionsIngredientNameOrUserUsernameOrUserFirstNameOrUserLastNameContainsIgnoreCase(userName, pageable);
+  }
+
+  public Page<Recipe> findSorted(String categoryName, Pageable pageable) {
+    return recipeRepository.findByCategoriesNameContainsIgnoreCase(categoryName, pageable);
+  }
+
+  public Page<Recipe> findAllByIngredient(String ingredientName, Pageable pageable) {
+    return recipeRepository.findByCompositionsIngredientNameContainsIgnoreCase(ingredientName, pageable);
+  }
+
   public List<Recipe> findAll() {
     return (List<Recipe>) recipeRepository.findAll();
   }

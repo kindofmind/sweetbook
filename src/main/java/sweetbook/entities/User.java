@@ -15,20 +15,20 @@ public class User {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
 
-  @Column(name = "username", nullable = false, length = 50)
+  @Column(name = "username", unique = true, nullable = false, length = 50)
   private String username;
 
-  @Column(name = "firstname")
+  @Column(name = "firstname", length = 50)
   private String firstName;
 
-  @Column(name = "lastname")
+  @Column(name = "lastname", nullable = true, length = 50)
   private String lastName;
 
-  @Column(name = "moodmsg")
+  @Column(name = "moodmsg", nullable = true, length = 50)
   private String moodMsg;
 
-  @Column(name = "password", nullable = false, length = 50)
-  @JsonIgnore
+  @Column(name = "password", nullable = false, length = 100)
+  //@JsonIgnore
   private String password;
 
   @Column(name = "enabled", nullable = false, columnDefinition = "tinyint(4)")

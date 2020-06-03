@@ -1,68 +1,1 @@
-package sweetbook.сontrollers;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.*;
-import sweetbook.entities.Recipe;
-import sweetbook.services.RecipeService;
-
-import java.util.List;
-
-@RestController
-@RequestMapping(path = "recipe")
-public class RecipeController {
-
-  @Autowired
-  private RecipeService recipeService;
-
-  @Autowired
-  private CategoryController categoryController;
-
-  @Autowired
-  private IngredientController ingredientController;
-
-  @GetMapping("/all")
-  public List<Recipe> findAll() {
-    return recipeService.findAll();
-  }
-
-  @GetMapping("/pagecount")
-  public int getPageCount() {
-    return recipeService.findAll(PageRequest.of(0, 10)).getTotalPages();
-  }
-
-  @GetMapping("/page/{page}")
-  public List<Recipe> findAllPageable(@PathVariable int page) {
-    return recipeService.findAll(PageRequest.of(page, 10)).getContent();
-  }
-
-  @GetMapping("{id}")
-  public Recipe findById(@PathVariable int id) {
-    return recipeService.findById(id);
-  }
-
-  @PostMapping
-  public void save(@RequestBody Recipe recipe) {
-    recipe.setCategories((categoryController.processUnique(recipe.getCategories())));
-    recipe.setCompositions(ingredientController.processUnique(recipe.getCompositions()));
-    recipeService.save(recipe);
-  }
-
-  @PutMapping
-  public void update(@RequestBody Recipe recipe) {
-    recipeService.save(recipe);
-  }
-
-  @DeleteMapping("{id}")
-  public void delete(@PathVariable int id) {
-    recipeService.delete(id);
-  }
-
-/*
-  @GetMapping("like/{id}")
-  public void like(@PathVariable int id)
-
-*/
-
-
-}
+package sweetbook.сontrollers;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.data.domain.Page;import org.springframework.data.domain.PageRequest;import org.springframework.web.bind.annotation.*;import sweetbook.entities.Recipe;import sweetbook.services.RecipeService;import java.util.List;@RestController@RequestMapping(path = "recipe")public class RecipeController {  private class pageCombine {    List<Recipe> recipes;    int pageNumber;    public pageCombine(List<Recipe> recipes, int pageNumber) {      this.recipes = recipes;      this.pageNumber = pageNumber;    }    public List<Recipe> getRecipes() {      return recipes;    }    public int getPageNumber() {      return pageNumber;    }  }  @Autowired  private RecipeService recipeService;  @Autowired  private CategoryController categoryController;  @Autowired  private IngredientController ingredientController;  @GetMapping("/all")  public List<Recipe> findAll() {    return recipeService.findAll();  }  @GetMapping("/page/{page}")  public pageCombine findAllPageable(@PathVariable int page) {    Page<Recipe> recipes = recipeService.findAll(PageRequest.of(page, 10));    return new pageCombine(recipes.getContent(), recipes.getTotalPages());  }  @GetMapping("/pagebykeyword/{keyword}/{page}")  public pageCombine findAllByKeywordPageable(@PathVariable String keyword, @PathVariable int page) {    Page<Recipe> recipes = recipeService.findAllByKeyword(keyword, PageRequest.of(page, 10));    return new pageCombine(recipes.getContent(), recipes.getTotalPages());  }  @GetMapping("/pagebyuser/{nameUsr}/{page}")  public pageCombine findAllByUserPageable(@PathVariable String nameUsr, @PathVariable int page) {    Page<Recipe> recipes = recipeService.findAllByUser(nameUsr, PageRequest.of(page, 10));    return new pageCombine(recipes.getContent(), recipes.getTotalPages());  }  @GetMapping("/pagebyname/{recipeName}/{page}")  public pageCombine findAllByNamePageable(@PathVariable String recipeName, @PathVariable int page) {    Page<Recipe> recipes = recipeService.findAllByName(recipeName, PageRequest.of(page, 10));    return new pageCombine(recipes.getContent(), recipes.getTotalPages());  }  @GetMapping("/pagebycat/{nameCat}/{page}")  public pageCombine findAllByCategoryPageable(@PathVariable String nameCat, @PathVariable int page) {    Page<Recipe> recipes = recipeService.findAllByCategory(nameCat, PageRequest.of(page, 10));    return new pageCombine(recipes.getContent(), recipes.getTotalPages());  }  @GetMapping("/pagebying/{nameIng}/{page}")  public pageCombine findAllByIngredientPageable(@PathVariable String nameIng, @PathVariable int page) {    Page<Recipe> recipes = recipeService.findAllByIngredient(nameIng, PageRequest.of(page, 10));    return new pageCombine(recipes.getContent(), recipes.getTotalPages());  }  @GetMapping("{id}")  public Recipe findById(@PathVariable int id) {    return recipeService.findById(id);  }  @PostMapping  public void save(@RequestBody Recipe recipe) {    recipe.setCategories((categoryController.processUnique(recipe.getCategories())));    recipe.setCompositions(ingredientController.processUnique(recipe.getCompositions()));    recipeService.save(recipe);  }  @PutMapping  public void update(@RequestBody Recipe recipe) {    recipeService.save(recipe);  }  @DeleteMapping("{id}")  public void delete(@PathVariable int id) {    recipeService.delete(id);  }/*  @GetMapping("like/{id}")  public void like(@PathVariable int id)*/}

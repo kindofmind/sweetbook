@@ -14,10 +14,16 @@ IngredientController
 
 RecipeController:
           /recipe
-            GET /all - returns all Entities
+            -----
+            GET /pagebyuser/{nameUsr}/{page} - returns Page results of search by Author (Username, First/Last name)
+            GET /pagebyname/{recipeName}/{page} - returns Page of results of search by RECIPE NAME
+            GET /pagebycat/{nameCat}/{page} - returns page of results of search by CATEGORY
+            GET /pagebying/{nameIng}/{page} - returns page of results of search by CATEGORY
+            -----
+            GET /all - returns all recipes
             GET /pagecount - returns number of pages (10 lines in each page)
             GET /page/{page} - returns particular page
-            GET /{id} - returns particular entity
+            GET /{id} - returns particular recipe
             POST/PUT {Object} - saves / updates object in table
             DELETE /{id} - deletes particular entity
 

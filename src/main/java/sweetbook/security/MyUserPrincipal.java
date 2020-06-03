@@ -6,14 +6,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import sweetbook.entities.Role;
 import sweetbook.entities.User;
 
-import javax.security.auth.Subject;
-import java.nio.file.attribute.UserPrincipal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-public class SweetUserPrincipal implements UserDetails {
+public class MyUserPrincipal implements UserDetails {
   private User user;
 
-  public SweetUserPrincipal(User user) {
+  public MyUserPrincipal(User user) {
     this.user = user;
   }
 
