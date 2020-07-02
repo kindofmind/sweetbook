@@ -20,6 +20,18 @@ public class Rating {
 
   private int value;
 
+  public Rating(Recipe recipe, User user, int value) {
+    this.recipe = recipe;
+    this.user = user;
+    this.value = value;
+  }
+
+  public Rating(int id, Recipe recipe, User user, int value) {
+    this.id = id;
+    this.recipe = recipe;
+    this.user = user;
+    this.value = value;
+  }
 }
 
 

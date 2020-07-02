@@ -1,6 +1,9 @@
 package sweetbook.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,15 +31,17 @@ public class User {
   private String moodMsg;
 
   @Column(name = "password", nullable = false, length = 100)
-  //@JsonIgnore
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private String password;
 
   @Column(name = "enabled", nullable = false, columnDefinition = "tinyint(4)")
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private boolean enabled;
 
   @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
   @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
   @Enumerated(EnumType.STRING)
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private Set<Role> roles;
 
 }

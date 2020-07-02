@@ -40,22 +40,6 @@ public class UserController {
     userService.save(user);
   }
 
-/*
-  @PostMapping("/register")
-  @ResponseBody
-  public ResponseEntity save(@RequestBody User user) throws Exception {
-    //if (userService.findByName(user.getUsername()) != null) throw new UsernameAlreadyExistsException();
-    //if (!user.getPassword().matches(passwordPattern)) throw new BadPasswordException();
-    //if (!user.getUsername().matches(usernamePattern)) throw new BadUserNameException();
-    //if (user.getFirstName().isEmpty()) throw new EmptyFirstnameException();
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-    user.setEnabled(true);
-    user.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_USER)));
-    userService.save(user);
-    return new ResponseEntity(HttpStatus.OK);
-  }
-*/
-
   @GetMapping(path = "/getuser")
   @ResponseBody
   public User getUserPrincipal(HttpServletRequest request) {
@@ -67,18 +51,6 @@ public class UserController {
   public Boolean checkUsernameFree(@PathVariable String name) {
     return userService.findByName(name) == null;
   }
-
-  /*
-  @GetMapping(path = "/test/ad")
-  public void createUser1() {
-    User user1 = new User();
-    user1.setEnabled(true);
-    user1.setPassword("1");
-    user1.setUsername("admin");
-    user1.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_USER, Role.ROLE_ADMIN)));
-    save(user1);
-  }
-*/
 
   final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
   final String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).{8,12}$";

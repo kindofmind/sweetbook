@@ -14,13 +14,14 @@ public class RecipeService {
   @Autowired
   private RecipeRepository recipeRepository;
 
-  public Page<Recipe> findAll(Pageable pageable) {
-    return recipeRepository.findAll(pageable);
+  public Page<Recipe> findAllByOrderByIdDesc(Pageable pageable) {
+    return recipeRepository.findAllByOrderByIdDesc(pageable);
   }
 
   public Page<Recipe> findAllByKeyword(String keyword, Pageable pageable) {
-    return recipeRepository.findByNameOrCategoriesNameOrCompositionsIngredientNameOrUserUsernameOrUserFirstNameOrUserLastNameContainsIgnoreCase(keyword, pageable);
-  }
+   return recipeRepository.findDistinctByNameContainsIgnoreCaseOrCategoriesNameContainsIgnoreCaseOrCompositionsIngredientNameContainsIgnoreCaseOrUserFirstNameLikeIgnoreCaseOrUserLastNameLikeIgnoreCase(
+       keyword, keyword, keyword, keyword, keyword, pageable);
+   }
 
   public Page<Recipe> findAllByName(String recipeName, Pageable pageable) {
     return recipeRepository.findByNameContainsIgnoreCase(recipeName, pageable);
@@ -30,8 +31,8 @@ public class RecipeService {
     return recipeRepository.findByCategoriesNameContainsIgnoreCase(categoryName, pageable);
   }
 
-  public Page<Recipe> findAllByUser(String userName, Pageable pageable) {
-    return recipeRepository.findByNameOrCategoriesNameOrCompositionsIngredientNameOrUserUsernameOrUserFirstNameOrUserLastNameContainsIgnoreCase(userName, pageable);
+  public Page<Recipe> findAllByUser(String firstName, String lastName, Pageable pageable) {
+    return recipeRepository.findByUserFirstNameLikeIgnoreCaseOrUserLastNameLikeIgnoreCase(firstName.trim(), lastName.trim(), pageable);
   }
 
   public Page<Recipe> findSorted(String categoryName, Pageable pageable) {

@@ -1,5 +1,6 @@
 package sweetbook.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -29,8 +30,14 @@ public class Recipe {
   private User user;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", orphanRemoval = true)
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private Set<Rating> rating;
 
   private int sumRating;
+
+  public void updateRating(Rating oldRating, Rating newRating) {
+    if (this.rating.contains(oldRating)) this.rating.remove(oldRating);
+    this.rating.add(newRating);
+  }
 
 }
