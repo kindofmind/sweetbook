@@ -31,12 +31,6 @@ public class UserController {
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     user.setEnabled(true);
     user.setRoles(new HashSet<>(Arrays.asList(Role.ROLE_USER)));
-    System.out.println(user.getPassword());
-    System.out.println(user.getUsername());
-    System.out.println(user.getRoles());
-    System.out.println(user.getFirstName());
-    System.out.println(user.getLastName());
-    System.out.println(user.getMoodMsg());
     userService.save(user);
   }
 
@@ -53,8 +47,14 @@ public class UserController {
   }
 
   final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+  //PATTERNS
+
   final String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).{8,12}$";
+
   final String usernamePattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{4,8}$";
+
+ // EXCEPTIONS
 
   private class UsernameAlreadyExistsException extends Exception {
     public UsernameAlreadyExistsException() {

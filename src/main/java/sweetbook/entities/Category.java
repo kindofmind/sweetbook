@@ -17,5 +17,4 @@ public class Category {
   @Column(unique = true, length = 30)
   private String name;
 
-
 }

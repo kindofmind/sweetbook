@@ -1,11 +1,12 @@
 package sweetbook.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import sweetbook.entities.Recipe;
 import sweetbook.repositories.RecipeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -19,9 +20,9 @@ public class RecipeService {
   }
 
   public Page<Recipe> findAllByKeyword(String keyword, Pageable pageable) {
-   return recipeRepository.findDistinctByNameContainsIgnoreCaseOrCategoriesNameContainsIgnoreCaseOrCompositionsIngredientNameContainsIgnoreCaseOrUserFirstNameLikeIgnoreCaseOrUserLastNameLikeIgnoreCase(
-       keyword, keyword, keyword, keyword, keyword, pageable);
-   }
+    return recipeRepository.findDistinctByNameContainsIgnoreCaseOrCategoriesNameContainsIgnoreCaseOrCompositionsIngredientNameContainsIgnoreCaseOrUserFirstNameLikeIgnoreCaseOrUserLastNameLikeIgnoreCase(
+        keyword, keyword, keyword, keyword, keyword, pageable);
+  }
 
   public Page<Recipe> findAllByName(String recipeName, Pageable pageable) {
     return recipeRepository.findByNameContainsIgnoreCase(recipeName, pageable);

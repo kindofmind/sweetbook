@@ -24,5 +24,4 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
                                                                                                                                                                                      String firstName,
                                                                                                                                                                                      String lastName,
                                                                                                                                                                                      Pageable pageable);
-
 }

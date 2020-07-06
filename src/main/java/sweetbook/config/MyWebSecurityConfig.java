@@ -78,11 +78,16 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .authorizeRequests()
         .antMatchers(HttpMethod.OPTIONS, "/*/**").permitAll()
+
         .antMatchers(HttpMethod.GET, "/recipe/**" ).permitAll()
+        .antMatchers("/recipe/like/**" ).authenticated()
+
         .antMatchers("/user/register/**").permitAll()
-        .antMatchers("/login").permitAll()
         .antMatchers("/user/**" ).authenticated()
+
+        .antMatchers("/login").permitAll()
         .antMatchers("/logout").authenticated()
+
         .anyRequest().authenticated();
   }
 

@@ -14,7 +14,7 @@ public class RatingService {
   private RatingRepository ratingRepository;
 
   public Rating findRatingByUserAndRecipe(User user, Recipe recipe) {
-   return ratingRepository.findByUserAndRecipe(user, recipe);
+    return ratingRepository.findByUserAndRecipe(user, recipe);
   }
 
   public void saveRating(Rating rating) {

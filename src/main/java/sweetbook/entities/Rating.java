@@ -20,6 +20,9 @@ public class Rating {
 
   private int value;
 
+  public Rating() {
+  }
+
   public Rating(Recipe recipe, User user, int value) {
     this.recipe = recipe;
     this.user = user;

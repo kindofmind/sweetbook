@@ -35,9 +35,18 @@ public class Recipe {
 
   private int sumRating;
 
-  public void updateRating(Rating oldRating, Rating newRating) {
-    if (this.rating.contains(oldRating)) this.rating.remove(oldRating);
-    this.rating.add(newRating);
+/*  public void updateRating(Rating oldRating, Rating newRating) throws Exception{
+    if (oldRating == null) this.rating.add(newRating);
+    else if (this.rating.contains(oldRating)) {
+      this.rating.remove(oldRating);
+      newRating.setId(oldRating.getId());
+      this.rating.add(newRating);
+    } else throw new RatingUpdateExceprion();
   }
 
+  private class RatingUpdateExceprion extends Exception {
+    public RatingUpdateExceprion() {
+      super("Something went wrong during rating update!");
+    }
+  }*/
 }

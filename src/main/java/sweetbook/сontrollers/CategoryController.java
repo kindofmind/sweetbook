@@ -24,16 +24,4 @@ public class CategoryController {
     return categoryService.findByKeyword(name);
   }
 
-  public Set<Category> processUnique(Set<Category> inCategories) {
-    Set<Category> outCategories = new HashSet<Category>();
-    if (inCategories.size() > 0) {
-      for (Category category : inCategories) {
-        if (categoryService.existsByName(category.getName())) 
-          category = categoryService.findByName(category.getName());
-        outCategories.add(category);
-      }
-    }
-    return outCategories;
-  }
-
 }
