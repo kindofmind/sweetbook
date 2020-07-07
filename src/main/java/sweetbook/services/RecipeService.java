@@ -20,28 +20,28 @@ public class RecipeService {
   }
 
   public Page<Recipe> findAllByKeyword(String keyword, Pageable pageable) {
-    return recipeRepository.findDistinctByNameContainsIgnoreCaseOrCategoriesNameContainsIgnoreCaseOrCompositionsIngredientNameContainsIgnoreCaseOrUserFirstNameLikeIgnoreCaseOrUserLastNameLikeIgnoreCase(
+    return recipeRepository.findDistinctByNameContainsIgnoreCaseOrCategoriesNameContainsIgnoreCaseOrCompositionsIngredientNameContainsIgnoreCaseOrUserFirstNameLikeIgnoreCaseOrUserLastNameLikeIgnoreCaseOrderByIdDesc(
         keyword, keyword, keyword, keyword, keyword, pageable);
   }
 
   public Page<Recipe> findAllByName(String recipeName, Pageable pageable) {
-    return recipeRepository.findByNameContainsIgnoreCase(recipeName, pageable);
+    return recipeRepository.findByNameContainsIgnoreCaseOrderByIdDesc(recipeName, pageable);
   }
 
   public Page<Recipe> findAllByCategory(String categoryName, Pageable pageable) {
-    return recipeRepository.findByCategoriesNameContainsIgnoreCase(categoryName, pageable);
+    return recipeRepository.findByCategoriesNameContainsIgnoreCaseOrderByIdDesc(categoryName, pageable);
   }
 
   public Page<Recipe> findAllByUser(String firstName, String lastName, Pageable pageable) {
-    return recipeRepository.findByUserFirstNameLikeIgnoreCaseOrUserLastNameLikeIgnoreCase(firstName.trim(), lastName.trim(), pageable);
+    return recipeRepository.findByUserFirstNameLikeIgnoreCaseOrUserLastNameLikeIgnoreCaseOrderByIdDesc(firstName.trim(), lastName.trim(), pageable);
   }
 
   public Page<Recipe> findSorted(String categoryName, Pageable pageable) {
-    return recipeRepository.findByCategoriesNameContainsIgnoreCase(categoryName, pageable);
+    return recipeRepository.findByCategoriesNameContainsIgnoreCaseOrderByIdDesc(categoryName, pageable);
   }
 
   public Page<Recipe> findAllByIngredient(String ingredientName, Pageable pageable) {
-    return recipeRepository.findByCompositionsIngredientNameContainsIgnoreCase(ingredientName, pageable);
+    return recipeRepository.findByCompositionsIngredientNameContainsIgnoreCaseOrderByIdDesc(ingredientName, pageable);
   }
 
   public List<Recipe> findAll() {
