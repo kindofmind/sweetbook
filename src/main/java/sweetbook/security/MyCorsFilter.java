@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MyCorsFilter implements Filter {
 
-  private final List<String> allowedOrigins = Arrays.asList("http://localhost:8080");
+  private final List<String> allowedOrigins = Arrays.asList("http://5.187.5.96:8080");
 
   @Override
   public void destroy() {
