@@ -91,24 +91,6 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
         .anyRequest().authenticated();
   }
 
-/*
-
- @Bean
- CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration corsConfiguration = new CorsConfiguration();
-    corsConfiguration.setAllowedOrigins(Collections.singletonList("http://localhost:8080"));
-    corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept"));
-    corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"));
-    corsConfiguration.setAllowCredentials(true);
-   corsConfiguration.applyPermitDefaultValues();
-   UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-    source.registerCorsConfiguration("/**", corsConfiguration);
-    return source;
-  }
-*/
-
-
   @Autowired
   public void configure(AuthenticationManagerBuilder builder) throws Exception {
     builder
